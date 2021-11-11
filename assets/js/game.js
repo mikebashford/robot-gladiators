@@ -60,7 +60,7 @@ var fight = function(enemyName)
         }
 
         // remove player's health by subtracting the amount set in the enemyAttack variable
-        playerHealth = playerHealth - enemyAttack;
+        playerHealth -= enemyAttack;
         console.log
         (
             enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
@@ -81,19 +81,51 @@ var fight = function(enemyName)
 };
 
 
-
-for(var i = 0; i < enemyNames.length; i++)
+var startGame = function()
 {
-    if(playerHealth >0)
+    //reset player stats
+    playerHealth = 100;
+    playerAttack = 10;
+    playerMoney = 10;
+
+    for(var i = 0; i < enemyNames.length; i++)
     {
-        window.alert("Welcome to Robot Gladiators! Round " + ( i + 1));
-        var pickedEnemyName = enemyNames[i];
-        enemyHealth = 50;
-        fight(pickedEnemyName);
+        if(playerHealth >0)
+        {
+            window.alert("Welcome to Robot Gladiators! Round " + ( i + 1));
+            var pickedEnemyName = enemyNames[i];
+            enemyHealth = 50;
+            fight(pickedEnemyName);
+        }
+        else
+        {
+            window.alert("You have lost your robot in battle! Game Over!");
+            break;
+        }
+    }
+    endGame();
+};
+
+var endGame = function()
+{
+    if( playerHealth > 0 )
+    {
+        window.alert("Great job, you've survived the game! You now have a score of " + playerMoney + ".");
     }
     else
     {
-        window.alert("You have lost your robot in battle! Game Over!");
-        break;
+        window.alert("The game has now ended. Let's see how you did!");
     }
-}
+    var playAgainConfirm = window.confirm("Would you like to play again?");
+
+    if(playAgainConfirm)
+    {
+        startGame();
+    }
+    else
+    {
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    }
+};
+
+startGame();
