@@ -1,10 +1,22 @@
+
+
 var fight = function(enemy) 
 {   
+    var isPlayerTurn = true;
+
+    if (Math.random() > 0.5)
+    {
+        isPlayerTurn = false;
+    }
+
     while( playerInfo.health > 0 && enemy.health > 0)
     {
-        if(fightOrSkip())
+        if(isPlayerTurn)
         {
-            break;
+            if(fightOrSkip())
+            {
+                break;
+            }
         }
 
         // remove enemy's health by subtracting the amount set in the playerInfo.attack variable
@@ -47,7 +59,8 @@ var fight = function(enemy)
         {
             window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
         }
-        // if player choses to skip
+        //switch turn order for next round
+        isPlayerTurn = !isPlayerTurn;
     }
 };
 
